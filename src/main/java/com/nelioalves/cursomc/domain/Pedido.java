@@ -106,6 +106,15 @@ public class Pedido implements Serializable {
 	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
+	
+	public Double getValorTotal() {
+		Double soma = 0.00;
+		
+		for(ItemPedido x: itens) {
+			soma += x.getSubTotal();
+		}
+		return soma;
+	}
 
 	@Override
 	public int hashCode() {
