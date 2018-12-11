@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.nelioalves.cursomc.services.DBService;
 
+
 @Configuration
 @Profile("dev")
 public class DevConfig {
@@ -28,4 +29,6 @@ public class DevConfig {
 		dbService.instantiateTestDatabase();
 		return true;
 	}
+	
+	
 }
