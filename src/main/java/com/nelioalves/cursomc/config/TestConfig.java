@@ -36,4 +36,5 @@ public class TestConfig {
 	public JavaMailSender mailSender() {
 		return new JavaMailSenderImpl();
 	}
+	
 }

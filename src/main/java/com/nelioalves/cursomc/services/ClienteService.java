@@ -102,4 +102,8 @@ public class ClienteService {
 		return cli;
 		
 	}
+	
+	public Cliente findByEmail(String email) {
+		return repo.findByemail(email);
+	}
 }
