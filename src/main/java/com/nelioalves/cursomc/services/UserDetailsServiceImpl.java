@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.Cliente;
+import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.security.UserSS;
 
 @Service
@@ -15,10 +16,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	
 	@Autowired
-	ClienteService clienteService;
+	ClienteRepository clienteRepository;
+	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Cliente cliente = clienteService.findByEmail(email);
+		Cliente cliente = clienteRepository.findByemail(email);
 		if (cliente == null) {
 			throw new UsernameNotFoundException(email);
 		}

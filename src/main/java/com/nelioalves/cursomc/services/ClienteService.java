@@ -32,7 +32,7 @@ public class ClienteService {
 	@Autowired
 	private EnderecoRepository erepo;
 	@Autowired
-	private BCryptPasswordEncoder bcp;
+	private BCryptPasswordEncoder ep;
 	
 
 	public Cliente find(Integer id) {
@@ -86,7 +86,7 @@ public class ClienteService {
 	}
 	
 	public Cliente fromDTO(ClienteNewDTO objDto) {
-		Cliente cli = new Cliente(null,objDto.getNome(),objDto.getEmail(),objDto.getCpfcnpj(),TipoCliente.toEnum(objDto.getTipo()),bcp.encode(objDto.getSenha()));
+		Cliente cli = new Cliente(null,objDto.getNome(),objDto.getEmail(),objDto.getCpfcnpj(),TipoCliente.toEnum(objDto.getTipo()),ep.encode(objDto.getSenha()));
 		Cidade cidade = new Cidade(objDto.getCidadeId(),null,null);
 		Endereco endereco = new Endereco(null,objDto.getTipologradouro(),objDto.getLogradouro(),objDto.getNumero(),objDto.getComplemento(),objDto.getBairro(),objDto.getCep(),cidade,cli);
 		cli.getEnderecos().add(endereco);
@@ -103,7 +103,7 @@ public class ClienteService {
 		
 	}
 	
-	public Cliente findByEmail(String email) {
+	public Cliente findByemail(String email) {
 		return repo.findByemail(email);
 	}
 }
