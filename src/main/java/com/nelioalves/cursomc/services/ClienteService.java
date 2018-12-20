@@ -41,7 +41,7 @@ public class ClienteService {
 	public Cliente find(Integer id) {
 		UserSS user = UserService.authenticated();
 		if (user ==null || !user.hasHole(Perfil.ADMIN) && user.getId() != id) {
-			throw new AuthorizationException("Acesso Negado!");
+			throw new AuthorizationException("Acesso Negado.");
 		}
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -112,5 +112,9 @@ public class ClienteService {
 	
 	public Cliente findByemail(String email) {
 		return repo.findByemail(email);
+	}
+	
+	public String cryptPassword(String senha) {
+		return ep.encode(senha);
 	}
 }
