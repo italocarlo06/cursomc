@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.nelioalves.cursomc.services.exceptions.FileException;
 
 @Service
 public class S3Service {
@@ -35,7 +36,7 @@ public class S3Service {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				throw new RuntimeException("Erro de IO " + e.getMessage());
+				throw new FileException("Erro de IO " + e.getMessage());
 				
 			}
 			
@@ -54,7 +55,7 @@ public class S3Service {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException("Erro converter URL to URI"+ e.getMessage());
+			throw new FileException("Erro converter URL to URI"+ e.getMessage());
 		}
 	}
 }
