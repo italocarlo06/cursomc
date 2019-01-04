@@ -36,16 +36,24 @@ public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository repo;
+	
 	@Autowired
 	private EnderecoRepository erepo;
+	
 	@Autowired
 	private BCryptPasswordEncoder ep;
+	
 	@Autowired 
 	private S3Service s3Service;
+	
 	@Autowired
 	private ImageService imageService;
+	
 	@Value("${img.prefix.client.profile}")
 	private String prefix;
+	
+	@Value("${img.profile.size}")
+	private int profileSize;
 	
 
 	public Cliente find(Integer id) {
@@ -131,12 +139,13 @@ public class ClienteService {
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
 		UserSS user = UserService.authenticated();
 		
-		Cliente cli = find(user.getId());
-		
 		BufferedImage jpgImage = imageService.getJpgImagemFromFile(multipartFile);
+		jpgImage = imageService.cropSquare(jpgImage);
+		jpgImage = imageService.resize(jpgImage,profileSize);
+		
 		String fileName = prefix+user.getId()+".jpg";
+		
 		URI uri = s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"),fileName,"image");
-		repo.save(cli);		
 				
 		return uri;
 	}
