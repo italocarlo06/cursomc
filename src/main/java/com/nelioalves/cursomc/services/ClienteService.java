@@ -128,8 +128,16 @@ public class ClienteService {
 		
 	}
 	
-	public Cliente findByemail(String email) {
-		return repo.findByemail(email);
+	public Cliente findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user ==null || !user.hasHole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso Negado.");
+		}
+		Cliente obj = repo.findByemail(email);
+		if (obj==null) {
+			throw new ObjectNotFoundException("Objeto não encontrado: Id "+user.getId()+", Tipo : "+Cliente.class.getName() );
+		}
+		return obj;
 	}
 	
 	public String cryptPassword(String senha) {
