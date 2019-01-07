@@ -37,6 +37,12 @@ public class Estado implements Serializable {
 		this.nome = nome;
 		this.sigla = sigla;
 	}
+	
+	public Estado(String nome, String sigla) {
+		super();
+		this.nome = nome;
+		this.sigla = sigla;
+	}
 
 	public Integer getId() {
 		return id;
